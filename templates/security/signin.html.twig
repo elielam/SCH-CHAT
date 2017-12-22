@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="container mt-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-4">
+
+                {{ form_start(form) }}
+                    {{ form_row(form.username) }}
+                    <small id="usernameHelp" class="form-text text-muted mb-2">Choose the right one.</small>
+                    {{ form_row(form.email) }}
+                    <small id="emailHelp" class="form-text text-muted mb-4">To get news.</small>
+                    {{ form_row(form.plainPassword.first) }}
+                    {{ form_widget(form.plainPassword.second) }}
+                <small id="passwordHelp" class="form-text text-muted mb-4">Totally secured with bcrypt encryption.</small>
+                <button type="submit" class="btn btn-primary col-lg-6">Register!</button>
+                {{ form_end(form) }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

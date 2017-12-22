@@ -1,0 +1,106 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="container-fluid mt-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-2 border p-0 text-center" style="overflow: auto;">
+
+                {% for user in users %}
+                    {% if user.isActive == true %}
+                    <div class="border border-left-0 border-right-0 border-top-0 col-lg-12 mt-3 text-left" style="height: 40px;">
+                        <div class="row">
+                            <p class="mt-2 col-8">{{ user.username}}</p>
+                            <p class="mt-2 col"></p>
+                            <p class="mt-2 col-2"><img width="15px" src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fb/Yellow_icon.svg/1024px-Yellow_icon.svg.png"></p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                {% for user in users %}
+                    {% if user.isActive != true %}
+                    <div class="border border-left-0 border-right-0 border-top-0 col-lg-12 mt-3 text-left" style="height: 40px;">
+                        <div class="row">
+                            <p class="mt-2 col-8">{{ user.username}}</p>
+                            <p class="mt-2 col"></p>
+                            <p class="mt-2 col-2"><img width="15px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Circle-green.svg/2000px-Circle-red.svg.png"></p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+
+            <div class="col-lg-9 border">
+
+                <div class="row">
+
+                    <div class="col-lg-12" style="height: 400px; overflow-y: scroll">
+
+                        {% for message in messages %}
+
+                            {% if message.author != app.user.id %}
+
+                                <div class="alert alert-primary col-4 mt-3" role="alert">
+                                    <div class="row">
+                                        <p>{{ message.authorName }} :</p>
+                                        <p style="display: inline-block; color: black;" class="ml-2 mr-0">{{ message.text }}</p>
+                                    </div>
+                                    <div class="row text-right">
+                                        <p style="font-size: 9px;">{{ message.dateTime|date("H:i:s") }} | {{ message.dateTime|date("d-m-Y") }}</p>
+                                    </div>
+                                </div>
+
+                            {% elseif message.author == app.user.id %}
+
+                                <div class="alert alert-light col-4 mt-3 mr-0 ml-auto border" role="alert">
+                                    <div class="row">
+                                        <p>{{ message.authorName }} :</p>
+                                        <p style="display: inline-block; color: black;" class="ml-2 mr-0">{{ message.text }}</p>
+                                    </div>
+                                    <div class="row text-right">
+                                        <p style="font-size: 9px;">{{ message.dateTime|date("H:i:s") }} | {{ message.dateTime|date("d-m-Y") }}</p>
+                                    </div>
+                                </div>
+
+                            {% endif %}
+
+
+                        {% endfor %}
+
+                        {# if un message de quelqun dautre #}
+
+
+
+                        {# if un message de soi meme #}
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-12 mt-4">
+
+                        <form action="{{ path('send') }}" method="post">
+                            <div class="form-group">
+                                <textarea class="form-control" id="text" name="_text" rows="3"></textarea>
+                                <button type="submit" class="btn btn-primary col-lg-2 mt-2">Send !</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
